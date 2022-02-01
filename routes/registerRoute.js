@@ -2,12 +2,11 @@ const express = require('express');
 const router = express.Router();
 const models = require('../models');
 const bcrypt = require('bcrypt')
-const {pool} = require('../config/dbConfig')
+// const {pool} = require('../config/dbConfig')
 
 router.post('/api/register', async(req, res) => {
   let {name, email, role, password} = req.body;
-  password = password.toString()
-  // console.log(name, email, role, password);
+  console.log(name, email, role, password);
 
   let errors =[];
 
@@ -24,7 +23,7 @@ router.post('/api/register', async(req, res) => {
   let oldUser = await models.user.findOne({where: {'email': email} })
   if(oldUser){
     errors.push({message: 'Email already exist. Try Login'})
-    res.render('index')
+    res.render('index', {errors})
   }
     // create user
     // hash password
@@ -38,9 +37,10 @@ router.post('/api/register', async(req, res) => {
         role: role,
         password: hashedPassword
       });
-      if (user.role === "User"){
-        res.render('userDashboard')
-      }
+      res.status(200).send('register successful')
+      // if (user.role === "User"){
+      //   res.render('userDashboard')
+      // }
       
     }
     catch(err) {
