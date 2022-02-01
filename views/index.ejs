@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="/public/styles/style.css">
+  <title>Book Directory | Register</title>
+</head>
+<body>
+  <h1>Read Any Book you like</h1>
+  <ul>
+    <% if (typeof errors != 'undefined') { %> <% errors.forEach(error =>{ %>
+        <li><%= error.message %></li>
+      <% }) %>
+    <% } %>
+  </ul>
+
+  <form action="/api/register" method="post" id="form">
+    <div>
+      <label for="name">Name:</label>
+      <input type="text"  id="name" name="name" placeholder="Enter name"><br>
+      <small id="name_err"> </small>
+    </div>
+
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter email"><br>
+      <small id="email_err"></small>
+    </div>
+
+    <div class="role">
+      <label for="role">Role:</label><br>
+      <label for="male">User:</label>
+      <input type="radio" id="role" name="role" value="User">
+      <label for="admin">Admin:</label>
+      <input type="radio" id="role" name="role" value="Admin"><br>
+      
+      <small id="role_err"></small>
+    </div>
+
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" placeholder="Enter password"><br>
+      <small id="pass_err"></small>
+    </div>
+
+    <div>
+      <input type="submit" value="Register">
+    </div>
+    <a href="/api/login">Already a Member login</a>
+  </form>
+</body>
+</html>
