@@ -15,6 +15,13 @@
     <h1>Email Registered Successfully</h1>
   </div>
   <h1>Read Any Book you like</h1>
+  <ul>
+    <% if (typeof errors != 'undefined') { %> <% errors.forEach(error =>{ %>
+        <li><%= error.message %></li>
+      <% }) %>
+    <% } %>
+  </ul>
+
   <form action="/api/login" method="post" id="form">
 
     <div>

@@ -2,9 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
+const models = require('./models');
 require('dotenv').config();
 
 const signup = require('./routes/registerRoute');
+const login = require('./routes/loginRoute');
+
 const verifyEmailToken = require('./middleware/emailJwtVerify');
 
 const app = express();
@@ -48,20 +51,22 @@ app.get('/api/login', (req, res) =>{
 });
 
 app.get('/api/userdashboard', (req, res) =>{
-  res.render('userDashboard');
+  res.render('userDashboard', {user: req.users.name})
 });
 
 app.get('/api/admindashboard', (req, res)=>{
-  res.render('adminDashboard');
+  res.render('adminDashboard', {user: req.models.name})
 });
 
-// app.get('/verifyemail/:token', verifyEmailToken);
 
 
 // Register 
 app.post('/api/register', signup);
 // verify email
 app.get('/verifyemail/:token', verifyEmailToken);
+
+// login
+app.post('/api/login', login);
 
 
 
