@@ -33,5 +33,10 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-
+db.users = require('./user.js')(sequelize, Sequelize);
+db.profilePics = require('./profilePics.js')(sequelize, Sequelize);
+db.profilePics.belongsTo(db.users,{
+  foreignKey: "id",
+  as: "users"
+})
 module.exports = db;

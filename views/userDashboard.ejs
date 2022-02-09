@@ -5,10 +5,51 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  
   <title>User Dashboard</title>
 </head>
 <body>
   <h1>Welcome <%= user.charAt(0).toUpperCase() + user.slice(1) %> </h1>
   <a href="/api/logout">Logout</a>
+
+  <div class="row">
+    <div class="col-sm-8 mt-3">
+      <h4>File Upload</h4>
+      <form action="/api/profilepic/upload" class="mt-4" enctype="multipart/form-data" method="post">
+        <div class="form-group">
+          <input type="file" name="profilepics" id="profilepics" class="form-control-file border">
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="preview-images"></div>
+  </div>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <!-- <script>
+    let imagesPreview = function(input, imageHolder) {
+      if(input.profilepics) {
+        let fileAmount = input.profilepics.length
+        for(i = 0; i < fileAmount; i++) {
+          let reader = new FileReader();
+          reader.onload = function(event) {
+            $($.parseHTML("<img>")).attr('src', event.target.result).appendTo(imageHolder);
+          };
+          reader.readAsDataURL(input.profilepics[i]);
+        }
+      };
+    }
+    $('#profilepics').on("change", function() {
+      imagesPreview(this, 'div.preview-images')
+    })
+  </script> -->
+
+
 </body>
 </html>

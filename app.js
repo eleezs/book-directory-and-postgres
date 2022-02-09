@@ -2,13 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
-const models = require('./models');
+const morgan = require('morgan'); 
 require('dotenv').config();
 
 const signup = require('./routes/registerRoute');
 const login = require('./routes/loginRoute');
-
 const verifyEmailToken = require('./middleware/emailJwtVerify');
+const auth = require("./middleware/auth");
+const proPic = require('./routes/profilePics')
 
 const app = express();
 
@@ -17,8 +18,7 @@ let corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-
+app.use(morgan('dev'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded ({extended: true }));
 app.use(express.static(__dirname + '/public'));
@@ -50,12 +50,12 @@ app.get('/api/login', (req, res) =>{
   res.render('login')
 });
 
-app.get('/api/userdashboard', (req, res) =>{
-  res.render('userDashboard', {user: req.users.name})
+app.get('/api/userdashboard', auth, (req, res) =>{
+  res.render('userDashboard')
 });
 
-app.get('/api/admindashboard', (req, res)=>{
-  res.render('adminDashboard', {user: req.models.name})
+app.get('/api/admindashboard',  (req, res)=>{
+  res.render('adminDashboard')
 });
 
 
@@ -64,9 +64,10 @@ app.get('/api/admindashboard', (req, res)=>{
 app.post('/api/register', signup);
 // verify email
 app.get('/verifyemail/:token', verifyEmailToken);
-
 // login
 app.post('/api/login', login);
+// upload profile pics
+app.post('/api/profilepic/upload', proPic)
 
 
 
